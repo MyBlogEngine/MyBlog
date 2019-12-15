@@ -1,0 +1,29 @@
+{
+  "name": "my_blog_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "BUILD_COMMENT": "We add a build script which just invokes webpack in production mode.",
+    "build": "webpack -p",
+    "START_COMMENT": "We also add a start script, which runs the webpack dev server for live application development using development mode and serves up the dist folder.",
+    "start": "webpack-dev-server -d --content-base ./dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}
