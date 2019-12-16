@@ -1,15 +1,16 @@
 import * as React from 'react';
 
 // Model
-export interface TodoItem {
-    text: string;
-    completed: boolean;
+class TodoItem {
+    constructor(public text: string = "", public completed: boolean = false) {
+
+    }
 };
 
 
 // View Component
 //   -TodoListView
-type TodoListViewProps = {
+interface TodoListViewProps {
     todos: TodoItem[],
     onClick(index: number): void,
 };
@@ -27,10 +28,10 @@ const TodoListView: React.SFC<TodoListViewProps> = ({ todos, onClick }) => (
 
 // View Component
 //   -AddTodoView
-type NewTodoViewProps = {
+interface NewTodoViewProps {
     onClick(text: string): void,
 }
-type NewTodoViewState = {
+interface NewTodoViewState {
     value: string,
 }
 class NewTodoView extends React.Component<NewTodoViewProps, NewTodoViewState> {
@@ -85,7 +86,7 @@ const TodoListContentView: React.SFC<React.PropsWithChildren<{}>> = ({ children 
 
 // Control Component
 //   -TodoList
-type TodoListState = {
+interface TodoListState {
     todos: TodoItem[]
 };
 export class TodoList extends React.Component<{}, TodoListState>
@@ -102,10 +103,7 @@ export class TodoList extends React.Component<{}, TodoListState>
 
     addTodo(text: string) {
         this.setState((prevState, _props) => {
-            const newItem: TodoItem = {
-                text: text,
-                completed: false,
-            }
+            const newItem: TodoItem = new TodoItem(text);
             let newTodos = [...prevState.todos, newItem];
             return { todos: newTodos };
         });
