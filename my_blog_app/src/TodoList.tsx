@@ -16,8 +16,9 @@ type TodoListViewProps = {
 const TodoListView: React.SFC<TodoListViewProps> = ({ todos, onClick }) => (
     <ul>
         {todos.map((todo: TodoItem, index: number) =>
-            <li><button onClick={(_e) => onClick(index)}>
-                {todo.text} {todo.completed ? "completed" : "not completed"}</button></li>
+            <li key={index}>
+                <span onClick={(_e) => { onClick(index) }}>{todo.text} {todo.completed ? "completed" : "not completed"}</span>
+            </li>
         )}
     </ul>
 )
