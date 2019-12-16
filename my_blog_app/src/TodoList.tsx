@@ -39,8 +39,15 @@ class NewTodoView extends React.Component<NewTodoViewProps, NewTodoViewState> {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
-
+    handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (event.key == 'Enter' && this.state.value != "") {
+            event.preventDefault();
+            this.props.onClick(this.state.value);
+            this.setState({ value: "" });
+        }
+    }
     handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         this.setState({ value: event.target.value });
     }
@@ -55,6 +62,7 @@ class NewTodoView extends React.Component<NewTodoViewProps, NewTodoViewState> {
             <input type="text" className="form-control"
                 value={this.state.value}
                 onChange={this.handleChange}
+                onKeyPress={this.handleKeyPress}
                 placeholder={this.placeholder} aria-label="new to-do" aria-describedby="button-addon2" />
             <div className="input-group-append">
                 <button className="btn btn-outline-secondary" type="button" id="button-addon2"
