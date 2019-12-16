@@ -24,18 +24,45 @@ const TodoListView: React.SFC<TodoListViewProps> = ({ todos, onClick }) => (
 
 // View Component
 //   -AddTodoView
-type AddTodoViewProps = {
+type NewTodoViewProps = {
     onClick(text: string): void,
 }
-const AddTodoView: React.SFC<AddTodoViewProps> = ({ onClick }) => (
-    <div className="input-group mb-3">
-        <input type="text" className="form-control" placeholder="new to-do" aria-label="new to-do" aria-describedby="button-addon2" />
-        <div className="input-group-append">
-            <button className="btn btn-outline-secondary" type="button" id="button-addon2"
-                onClick={(_e) => onClick("Some text Added!")}>Add</button>
-        </div>
-    </div>
-)
+type NewTodoViewState = {
+    value: string,
+}
+class NewTodoView extends React.Component<NewTodoViewProps, NewTodoViewState> {
+    constructor(props: NewTodoViewProps, public placeholder: string) {
+        super(props);
+        this.placeholder = "new to-do";
+        this.state = {
+            value: "",
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({ value: event.target.value });
+    }
+
+    handleClick(_e: React.MouseEvent<HTMLButtonElement>) {
+        this.props.onClick(this.state.value);
+        this.setState({ value: "" });
+    }
+
+    render() {
+        return (<div className="input-group mb-3">
+            <input type="text" className="form-control"
+                value={this.state.value}
+                onChange={this.handleChange}
+                placeholder={this.placeholder} aria-label="new to-do" aria-describedby="button-addon2" />
+            <div className="input-group-append">
+                <button className="btn btn-outline-secondary" type="button" id="button-addon2"
+                    onClick={this.handleClick}>Add</button>
+            </div>
+        </div>)
+    }
+}
 
 // View Component
 //   -TodoListContentView
@@ -84,7 +111,7 @@ export class TodoList extends React.Component<{}, TodoListState>
     render() {
         return (<TodoListContentView>
             <TodoListView todos={this.state.todos} onClick={this.handleClick} />
-            <AddTodoView onClick={this.addTodo} />
+            <NewTodoView onClick={this.addTodo} />
         </TodoListContentView>
         );
     }
