@@ -14,11 +14,11 @@ interface TodoListViewProps {
     todos: TodoItem[],
     onClick(index: number): void,
 };
-const TodoListView: React.SFC<TodoListViewProps> = ({ todos, onClick }) => (
+const TodoListView: React.SFC<TodoListViewProps> = (props) => (
     <div className="d-flex flex-column">
-        {todos.map((todo: TodoItem, index: number) =>
+        {props.todos.map((todo: TodoItem, index: number) =>
             <div key={index}>
-                <span onClick={(_e) => { onClick(index) }}>
+                <span onClick={(_e) => { props.onClick(index) }}>
                     {todo.completed ? <p><del>{todo.text}</del></p> : <p>{todo.text}</p>}
                 </span>
             </div>
@@ -76,14 +76,6 @@ class NewTodoView extends React.Component<NewTodoViewProps, NewTodoViewState> {
     }
 }
 
-// View Component
-//   -TodoListContentView
-const TodoListContentView: React.SFC<React.PropsWithChildren<{}>> = ({ children }) => (
-    <div className="container">
-        {children}
-    </div>
-)
-
 // Control Component
 //   -TodoList
 interface TodoListState {
@@ -118,10 +110,10 @@ export class TodoList extends React.Component<{}, TodoListState>
     }
 
     render() {
-        return (<TodoListContentView>
+        return (<div>
             <TodoListView todos={this.state.todos} onClick={this.handleClick} />
             <NewTodoView onClick={this.addTodo} />
-        </TodoListContentView>
+        </div>
         );
     }
 }

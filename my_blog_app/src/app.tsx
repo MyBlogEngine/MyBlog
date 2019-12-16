@@ -2,14 +2,17 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom';
 
 import { TodoList } from './TodoList';
+import { DateView } from './DateView';
 
 // React.SFC interface takes a generic argument that allows
 // you to easily provide the type annotations for the component props
-type AppProps = { message: string };
-const App: React.SFC<AppProps> = ({ message }) => {
+const App: React.SFC<{}> = () => {
+    const today: Date = new Date(Date.now());
+    const dateString: string = today.toDateString();
+
     return (
-        <div>
-            {message}
+        <div className="container">
+            <DateView dateString={dateString} />
             <TodoList />
         </div>);
 }
@@ -17,6 +20,6 @@ const App: React.SFC<AppProps> = ({ message }) => {
 
 
 ReactDOM.render(
-    <App message={"Say Hi"} />,
+    <App />,
     document.getElementById('root')
 );
