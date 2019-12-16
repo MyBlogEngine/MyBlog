@@ -14,13 +14,15 @@ type TodoListViewProps = {
     onClick(index: number): void,
 };
 const TodoListView: React.SFC<TodoListViewProps> = ({ todos, onClick }) => (
-    <ul>
+    <div className="d-flex flex-column">
         {todos.map((todo: TodoItem, index: number) =>
-            <li key={index}>
-                <span onClick={(_e) => { onClick(index) }}>{todo.text} {todo.completed ? "completed" : "not completed"}</span>
-            </li>
+            <div key={index}>
+                <span onClick={(_e) => { onClick(index) }}>
+                    {todo.completed ? <p><del>{todo.text}</del></p> : <p>{todo.text}</p>}
+                </span>
+            </div>
         )}
-    </ul>
+    </div>
 )
 
 // View Component
