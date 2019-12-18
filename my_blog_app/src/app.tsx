@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom';
 
-import { TodoList } from './TodoList';
+import { TodoContainer } from './TodoContainer';
 
 // React.SFC interface takes a generic argument that allows
 // you to easily provide the type annotations for the component props
@@ -10,12 +10,11 @@ const App: React.SFC<{}> = () => {
     const dateString: string = today.toDateString();
 
     return (
-        <div className="container">
+        <div className="container" onContextMenu={(e) => e.preventDefault()}>
             <h3><u>{dateString}</u></h3>
-            <TodoList />
+            <TodoContainer />
         </div>);
 }
-
 
 
 ReactDOM.render(
