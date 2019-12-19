@@ -64,7 +64,6 @@ export class TodoContainer extends React.Component<{}, TodoContainerState>
     render() {
 
         const callbacks: TodoCallbacks = this;
-        console.log("render...");
         const TodoComponents = this.state.todos.map((todo: TodoItem, index: number) => {
             const props: TodoComponent.TodoProps = {
                 todo: todo,
@@ -77,7 +76,7 @@ export class TodoContainer extends React.Component<{}, TodoContainerState>
 
         return (<div>
             {TodoComponents}
-            <InputTextForm placeholder="New to do..." onSubmit={this.push} />
+            <InputTextForm placeholder="New to do..." initvalue="" onSubmit={this.push} />
         </div >
         );
     }

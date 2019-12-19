@@ -1,9 +1,9 @@
 import * as React from "react";
 
 
-export interface InputTextProps {
+export interface InputTextFormProps {
     placeholder: string; // input : Content to be appear in the form control when the form control is empty
-
+    initvalue: string;
     onSubmit(text: string): void;
 };
 
@@ -11,11 +11,11 @@ interface InputTextState {
     value: string;
 }
 
-export class InputTextForm extends React.Component<InputTextProps, InputTextState> {
-    constructor(props: InputTextProps) {
+export class InputTextForm extends React.Component<InputTextFormProps, InputTextState> {
+    constructor(props: InputTextFormProps) {
         super(props);
         this.state = {
-            value: "",
+            value: this.props.initvalue,
         }
     }
 
