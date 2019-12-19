@@ -28,6 +28,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     notify = () => {
         this.props.callbacks.updateAt(this.props.index, this.state.todo);
     }
+
     remove = () => {
         this.props.callbacks.removeAt(this.props.index);
     }
@@ -45,6 +46,6 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     }
 
     render() {
-        return <div>{this.state.todo.text}</div>
+        return (<p>{this.state.todo.text}</p>)
     }
 }
