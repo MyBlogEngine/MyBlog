@@ -1,9 +1,16 @@
 import * as React from "react";
 import { TodoItem } from "./TodoItem";
-import { TodoCallbacks } from "./TodoContainer";
 import { InputTextForm } from "./InputTextForm";
+import { Button } from "./Button";
 
 export enum TodoStateMode { Idle, EditingText };
+
+export interface TodoCallbacks {
+    push(text: string): void;
+    removeAt(index: number): void;
+    updateAt(index: number, updated: TodoItem): void;
+    editAt(index: number): void;
+};
 
 export interface TodoProps {
     todo: TodoItem;
@@ -12,23 +19,15 @@ export interface TodoProps {
     mode: TodoStateMode;
 };
 
-interface TodoState {
-    todo: TodoItem;
-    mode: TodoStateMode;
-}
-
-
-export class Todo extends React.Component<TodoProps, TodoState> {
+export class Todo extends React.Component<TodoProps, {}> {
     constructor(props: TodoProps) {
         super(props);
-        this.state = {
-            todo: props.todo,
-            mode: props.mode,
-        };
     }
 
-    notify = () => {
-        this.props.callbacks.updateAt(this.props.index, this.state.todo);
+    updateText = (text: string) => {
+        let update = { ...this.props.todo };
+        update.text = text;
+        this.props.callbacks.updateAt(this.props.index, update);
     }
 
     remove = () => {
@@ -36,19 +35,9 @@ export class Todo extends React.Component<TodoProps, TodoState> {
     }
 
     toggle = () => {
-        let updated = this.state.todo;
-        updated.completed = !updated.completed;
-        this.setState({ todo: updated }, this.notify);
-    }
-
-    updateText = (text: string) => {
-        if (text == "") {
-            this.remove();
-        } else {
-            let updated = this.state.todo;
-            updated.text = text;
-            this.setState({ todo: updated, mode: TodoStateMode.Idle }, this.notify);
-        }
+        let update = { ...this.props.todo };
+        update.completed = !update.completed;
+        this.props.callbacks.updateAt(this.props.index, update);
     }
 
     onClick = (event: React.MouseEvent<HTMLParagraphElement>) => {
@@ -59,22 +48,23 @@ export class Todo extends React.Component<TodoProps, TodoState> {
         3: Fourth button, typically the Browser Back button
         4: Fifth button, typically the Browser Forward button
         */
-        console.log(event.button);
         if (event.button == 0) {
             this.toggle();
         } else if (event.button == 2) {
-            this.setState({ mode: TodoStateMode.EditingText });
+            this.props.callbacks.editAt(this.props.index);
         }
     }
 
     render() {
-        if (this.state.mode == TodoStateMode.Idle) {
+        if (this.props.mode == TodoStateMode.Idle) {
             return <p onClick={this.onClick} onContextMenu={this.onClick}>
-                {this.state.todo.completed ? <del>{this.state.todo.text}</del> : this.state.todo.text}
+                {this.props.todo.completed ? <del>{this.props.todo.text}</del> : this.props.todo.text}
             </p>
-        } else if (this.state.mode == TodoStateMode.EditingText) {
-            return <InputTextForm placeholder={this.state.todo.text} initvalue={this.state.todo.text}
-                onSubmit={this.updateText} />;
+        } else if (this.props.mode == TodoStateMode.EditingText) {
+            return <InputTextForm initvalue={this.props.todo.text}
+                onSubmit={this.updateText} onBlur={this.updateText}>
+                <Button onClick={() => this.remove()} label="Delete" />
+            </InputTextForm>;
         }
 
         return {}

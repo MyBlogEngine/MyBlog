@@ -2,9 +2,10 @@ import * as React from "react";
 
 
 export interface InputTextFormProps {
-    placeholder: string; // input : Content to be appear in the form control when the form control is empty
+    placeholder?: string; // input : Content to be appear in the form control when the form control is empty
     initvalue: string;
     onSubmit(text: string): void;
+    onBlur?(text: string): void;
 };
 
 interface InputTextState {
@@ -33,15 +34,25 @@ export class InputTextForm extends React.Component<InputTextFormProps, InputText
         event.preventDefault();
     }
 
+    onBlur = (_e: React.FocusEvent<HTMLInputElement>) => {
+        if (this.props.onBlur) {
+            this.props.onBlur(this.state.value);
+        }
+    }
+
     render() {
         return (
             <form onSubmit={this.onSubmit}>
-                <input type="text" className="form-control"
-                    value={this.state.value}
-                    name="todo-text"
-                    placeholder={this.props.placeholder}
-                    onChange={this.onChange}
-                />
+                <div className="input-group mb-3">
+                    <input type="text" className="form-control"
+                        value={this.state.value}
+                        name="textinput"
+                        placeholder={this.props.placeholder}
+                        onChange={this.onChange}
+                        onBlur={this.onBlur}
+                    />
+                    {this.props.children}
+                </div>
             </form>
         )
     }
