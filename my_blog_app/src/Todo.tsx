@@ -2,13 +2,18 @@ import * as React from "react";
 import { TodoItem } from "./TodoItem";
 import { TodoCallbacks } from "./TodoContainer";
 
-interface TodoProps {
-    todo: TodoItem,
-    index: number,
-    callbacks: TodoCallbacks,
+export enum TodoStateMode { Idle, EditingText };
+
+export interface TodoProps {
+    todo: TodoItem;
+    index: number;
+    callbacks: TodoCallbacks;
+    mode: TodoStateMode;
 };
+
 interface TodoState {
-    todo: TodoItem
+    todo: TodoItem;
+    mode: TodoStateMode;
 }
 
 export class Todo extends React.Component<TodoProps, TodoState> {
@@ -16,6 +21,7 @@ export class Todo extends React.Component<TodoProps, TodoState> {
         super(props);
         this.state = {
             todo: props.todo,
+            mode: props.mode,
         };
     }
 
@@ -32,13 +38,13 @@ export class Todo extends React.Component<TodoProps, TodoState> {
         this.setState({ todo: updated }, this.notify);
     }
 
-    modifyText = (text: string) => {
+    updateText = (text: string) => {
         let updated = this.state.todo;
         updated.text = text;
         this.setState({ todo: updated }, this.notify);
     }
 
     render() {
-        return <div></div>
+        return <div>{this.state.todo.text}</div>
     }
 }

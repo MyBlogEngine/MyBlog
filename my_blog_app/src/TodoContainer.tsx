@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TodoItem } from "./TodoItem";
-import { Todo } from "./Todo";
-
+import *  as TodoComponent from "./Todo";
+import { InputTextForm } from "./InputTextForm";
 
 
 interface TodoContainerState {
@@ -25,11 +25,13 @@ export class TodoContainer extends React.Component<{}, TodoContainerState>
     }
 
     push = (text: string) => {
-        this.setState((prevState, _props) => {
-            const newItem: TodoItem = new TodoItem(text);
-            let newTodos = [...prevState.todos, newItem];
-            return { todos: newTodos };
-        });
+        if (text != "") {
+            this.setState((prevState, _props) => {
+                const newItem: TodoItem = new TodoItem(text);
+                let newTodos = [...prevState.todos, newItem];
+                return { todos: newTodos };
+            });
+        }
     }
 
     removeAt = (index: number) => {
@@ -62,14 +64,21 @@ export class TodoContainer extends React.Component<{}, TodoContainerState>
     render() {
 
         const callbacks: TodoCallbacks = this;
-
+        console.log("render...");
         const TodoComponents = this.state.todos.map((todo: TodoItem, index: number) => {
-            <Todo key={index} todo={todo} index={index} callbacks={callbacks} />
+            const props: TodoComponent.TodoProps = {
+                todo: todo,
+                index: index,
+                callbacks: callbacks,
+                mode: TodoComponent.TodoStateMode.Idle,
+            };
+            return < TodoComponent.Todo key={index} {...props} />
         });
 
         return (<div>
             {TodoComponents}
-        </div>
+            <InputTextForm placeholder="New to do..." onSubmit={this.push} />
+        </div >
         );
     }
 }
