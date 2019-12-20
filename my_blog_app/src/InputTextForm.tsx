@@ -20,13 +20,14 @@ export class InputTextForm extends React.Component<InputTextFormProps, InputText
         }
     }
 
-    onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({ value: event.target.value });
-    }
 
     // Handler for change event that fires when an alteration to the element's value is committed by the user.
     // Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
     // When the element loses focus after its value was changed, but not commited (e.g., after editing the value of input type="text")
+    onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({ value: event.target.value });
+    }
+
     onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         const value = this.state.value;
         this.props.onSubmit(value);

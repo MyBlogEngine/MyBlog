@@ -6,7 +6,6 @@ import { Button } from "./Button";
 export enum TodoStateMode { Idle, EditingText };
 
 export interface TodoCallbacks {
-    push(text: string): void;
     removeAt(index: number): void;
     updateAt(index: number, updated: TodoItem): void;
     editAt(index: number): void;
@@ -43,10 +42,7 @@ export class Todo extends React.Component<TodoProps, {}> {
     onClick = (event: React.MouseEvent<HTMLParagraphElement>) => {
         /*
         0: Main button pressed, usually the left button or the un-initialized state
-        1: Auxiliary button pressed, usually the wheel button or the middle button (if present)
         2: Secondary button pressed, usually the right button
-        3: Fourth button, typically the Browser Back button
-        4: Fifth button, typically the Browser Forward button
         */
         if (event.button == 0) {
             this.toggle();
