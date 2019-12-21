@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TodoItem } from "./TodoItem";
+import { TodoItem } from "./Todo";
 import { InputTextForm } from "./InputTextForm";
 import { Button } from "./Button";
 
