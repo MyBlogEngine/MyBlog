@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Post } from "./Post";
+import { CardForm } from "./CardForm";
 
 interface PostSmallProps {
   post: Post;
@@ -23,6 +24,14 @@ export class PostSmallView extends React.Component<PostSmallProps, {}> {
         <p>Posted on {this.props.post.postingDate?.toDateString()}</p>
         <hr />
         <p className="lead">{this.props.post.text}</p>
+        <hr />
+        <CardForm
+          head="Leave a Comment:"
+          submitButtonLabel="Submit"
+          onSubmitButtonClick={() => {
+            console.log("submit button clicked");
+          }}
+        />
       </div>
     );
   }

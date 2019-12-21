@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Post } from "./Post";
-import { PostSmallView } from "./PostSmallView";
+//import { PostSmallView } from "./PostSmallView";
+import { PostCardView } from "./PostCardView";
 
 const samples: Post[] = [
   {
@@ -65,14 +66,12 @@ export class PostContainer extends React.Component<
 
   render() {
     const posts = this.state.posts.map((post, index) => {
-      return (
-        <PostSmallView key={index} post={post} index={index} expend={false} />
-      );
+      return <PostCardView key={index} post={post} index={index} />;
     });
 
     return (
       <div className="container">
-        <div className="row">{posts}</div>
+        <div className="col">{posts}</div>
       </div>
     );
   }
