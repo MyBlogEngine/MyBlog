@@ -8,4 +8,26 @@
   min-width: 250px;
   max-width: 250px;
   min-height: 100vh;
+  transition: all 0.3s;
+  background: #7386d5;
+  color: #fff;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
+#sidebar ul li {
+  background: #7386d5;
+  color: #fff;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+#sidebar ul li a {
+  color: inherit;
+}
+
+#sidebar ul.components {
+  padding-top: 20px;
 }
