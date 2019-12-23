@@ -1,12 +1,11 @@
 import * as React from "react";
 import { Post } from "./Post";
-//import { PostSmallView } from "./PostSmallView";
-import { PostCardView } from "./PostCardView";
+import { PostSmallView } from "./PostSmallView";
 
 const samples: Post[] = [
   {
     title: "Title is important?",
-    postingDate: new Date(Date.now()),
+    postedDate: new Date(Date.now()),
     lastModifiedDate: new Date(Date.now()),
     author: "Minjeong Kim",
     text: "wjdakf wjdakf wkadl dhk..."
@@ -14,7 +13,7 @@ const samples: Post[] = [
   {
     title: "I am so sleepy right now...",
 
-    postingDate: new Date(Date.now() - 36000),
+    postedDate: new Date(Date.now() - 36000),
     lastModifiedDate: new Date(Date.now()),
     author: "Minjeong Kim",
     text:
@@ -24,7 +23,7 @@ const samples: Post[] = [
   },
   {
     title: "Because I am very sleepy",
-    postingDate: new Date(Date.now() - 72000),
+    postedDate: new Date(Date.now() - 72000),
     lastModifiedDate: new Date(Date.now()),
     author: "Minjeong Kim",
     text:
@@ -35,7 +34,7 @@ const samples: Post[] = [
   },
   {
     title: "Title is important?",
-    postingDate: new Date(Date.now() - 48000),
+    postedDate: new Date(Date.now() - 48000),
     lastModifiedDate: new Date(Date.now()),
     author: "Minjeong Kim",
     text:
@@ -66,12 +65,17 @@ export class PostContainer extends React.Component<
 
   render() {
     const posts = this.state.posts.map((post, index) => {
-      return <PostCardView key={index} post={post} index={index} />;
+      return (
+        <PostSmallView key={index} post={post} index={index}></PostSmallView>
+      );
     });
 
     return (
       <div className="container">
-        <div className="col">{posts}</div>
+        <div className="col">
+          {posts}
+          {this.props.children}
+        </div>
       </div>
     );
   }

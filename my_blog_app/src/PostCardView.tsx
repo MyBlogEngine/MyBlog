@@ -4,7 +4,6 @@ import { Post } from "./Post";
 interface PostCardViewProps {
   post: Post;
   index: number;
-  expend?: boolean;
 }
 
 export class PostCardView extends React.Component<PostCardViewProps, {}> {
@@ -13,10 +12,6 @@ export class PostCardView extends React.Component<PostCardViewProps, {}> {
   }
 
   render() {
-    const style = {
-      width: "18rem"
-    };
-
     let simpletext = "";
     const maxtext = 65;
     if (this.props.post.text.length > maxtext) {
@@ -26,7 +21,7 @@ export class PostCardView extends React.Component<PostCardViewProps, {}> {
     }
 
     return (
-      <div className="card mt-4" style={style}>
+      <div className="card mt-4">
         <div className="card-body">
           <h5 className="card-title">{this.props.post.title}</h5>
           <h6 className="card-subtitle mb-2 text-muted">

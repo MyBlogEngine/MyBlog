@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 
 import { TodoContainer } from "./TodoContainer";
 import { PostContainer } from "./PostContainer";
+import { CommentContainer } from "./CommentContainer";
 
 // React.SFC interface takes a generic argument that allows
 // you to easily provide the type annotations for the component props
@@ -17,7 +18,9 @@ const App: React.SFC<{}> = () => {
       <h3>
         <u>{dateString}</u>
       </h3>
-      <PostContainer />
+      <PostContainer>
+        <CommentContainer></CommentContainer>
+      </PostContainer>
     </div>
   );
 };
